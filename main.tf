@@ -33,6 +33,11 @@ provider "ibm" {
 ##############################################################################
 # Resources
 ##############################################################################
+resource "ibm_compute_ssh_key" "schematics_ssh_key" {
+    label = "Schematics SSH key for environment :: $SCHEMATICS.ENV"
+    public_key = "$SCHEMATICS.SSHKEYPUBLIC"
+}
+
 resource "ibm_compute_vm_instance" "test_vsi" {
     hostname = "anton-test-vsi"
     domain = "anton.com"
@@ -47,24 +52,24 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     public_vlan_id = 1785525
     private_vlan_id = 1785527
 
-    provisioner "remote-exec" {
-      inline = [
-        "apt-get upgrade",
-        "apt-get update -y",
-        "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
-        "sudo apt-get install -y nodejs",
-        "mkdir app",
-        "touch app/anton.txt",
-        "echo all done!"
-      ]
-    }
+    # provisioner "remote-exec" {
+    #   inline = [
+    #     "apt-get upgrade",
+    #     "apt-get update -y",
+    #     "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
+    #     "sudo apt-get install -y nodejs",
+    #     "mkdir app",
+    #     "touch app/anton.txt",
+    #     "echo all done!"
+    #   ]
+    # }
 
-    connection {
-      type = "ssh"
-      host = "${self.test_vsi.ipv4_address}"
-      user = "root"
-      password = "asdasd"
-    }
+    # connection {
+    #   type = "ssh"
+    #   host = "${self.test_vsi.ipv4_address}"
+    #   user = "root"
+    #   password = "asdasd"
+    # }
 }
 
 ##############################################################################
