@@ -35,7 +35,7 @@ provider "ibm" {
 ##############################################################################
 resource "ibm_compute_ssh_key" "schematics_ssh_key" {
     label = "Schematics SSH key for environment :: ${SCHEMATICS.ENV}"
-    public_key = "${SCHEMATICS.SSHKEYPUBLIC}"
+    public_key = "$SCHEMATICS.SSHKEYPUBLIC"
 }
 
 resource "ibm_compute_vm_instance" "test_vsi" {
