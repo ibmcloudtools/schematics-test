@@ -85,9 +85,9 @@ output "ssh_key_id" {
 }
 
 output "vm_instance_id" {
-  vaue = "${ibm_compute_vm_instance.test_vsi.id}"
+  value = "${ibm_compute_vm_instance.test_vsi.id}"
 }
 
 output "vm_instance_ipv4_address" {
-  vaue = "${ibm_compute_vm_instance.test_vsi.ipv4_address}"
+  value = "${ibm_compute_vm_instance.test_vsi.ipv4_address}"
 }
