@@ -63,7 +63,7 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     public_vlan_id = "${var.public_vlan_id}"
     private_vlan_id = "${var.private_vlan_id}"
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
-    post_install_script_uri = "https://raw.githubusercontent.com/IBM-Bluemix/tf-schematics-vm/master/post-install.sh"
+    post_install_script_uri = "https://raw.githubusercontent.com/ibmcloudtools/schematics-test/master/post_install.sh"
 }
 
 ##############################################################################
