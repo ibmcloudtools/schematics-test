@@ -82,6 +82,7 @@ resource "ibm_compute_vm_instance" "test_vsi" {
         "apt-get upgrade -y",
         "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
         "sudo apt-get install -y nodejs",
+        "useradd -c 'devops user' -m -d /home/devops -s /bin/bash devops -p $(openssl passwd devops)",
         "mkdir app",
         "touch app/anton.txt",
         "echo all done!"
