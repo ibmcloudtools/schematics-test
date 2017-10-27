@@ -58,29 +58,36 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     private_vlan_id = 1785527
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
 
-    # provisioner "remote-exec" {
-    #   inline = [
-    #     "apt-get upgrade",
-    #     "apt-get update -y",
-    #     "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
-    #     "sudo apt-get install -y nodejs",
-    #     "mkdir app",
-    #     "touch app/anton.txt",
-    #     "echo all done!"
-    #   ]
-    # }
+    provisioner "remote-exec" {
+      inline = [
+        "apt-get upgrade",
+        "apt-get update -y",
+        "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
+        "sudo apt-get install -y nodejs",
+        "mkdir app",
+        "touch app/anton.txt",
+        "echo all done!"
+      ]
+    }
 
-    # connection {
-    #   type = "ssh"
-    #   host = "${self.test_vsi.ipv4_address}"
-    #   user = "root"
-    #   password = "asdasd"
-    # }
+    connection {
+      type = "ssh"
+      host = "${self.test_vsi.ipv4_address}"
+      user = "root"
+    }
 }
 
 ##############################################################################
 # Outputs
 ##############################################################################
-# output "ssh_key_id" {
-#   value = "${ibm_compute_ssh_key.ssh_key.id}"
-# }
+output "ssh_key_id" {
+  value = "${ibm_compute_ssh_key.schematics_ssh_public_key.id}"
+}
+
+output "vm_instance_id" {
+  vaue = "${ibm_compute_vm_instance.test_vsi.id}"
+}
+
+output "vm_instance_ipv4_address" {
+  vaue = "${ibm_compute_vm_instance.test_vsi.ipv4_address}"
+}
