@@ -34,7 +34,7 @@ provider "ibm" {
 # Resources
 ##############################################################################
 resource "ibm_compute_vm_instance" "test_vsi" {
-    hostname = "test_vsi"
+    hostname = "anton-test-vsi"
     domain = "anton.com"
     os_reference_code = "UBUNTU_16_64"
     datacenter = "${var.datacenter}"
