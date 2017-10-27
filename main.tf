@@ -50,8 +50,8 @@ resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
 }
 
 resource "ibm_compute_vm_instance" "test_vsi" {
-    hostname = "anton-test-vsi-1"
-    domain = "anton.com"
+    hostname = "devex-test-vsi-1"
+    domain = "devex.com"
     os_reference_code = "UBUNTU_16_64"
     datacenter = "${var.datacenter}"
     network_speed = 10
