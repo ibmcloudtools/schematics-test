@@ -46,6 +46,18 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     user_metadata = "{\"foo\":\"bar\"}"
     public_vlan_id = 1785525
     private_vlan_id = 1785527
+
+    provisioner "remote-exec" {
+      inline = [
+        "apt-get upgrade",
+        "apt-get update -y",
+        "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
+        "sudo apt-get install -y nodejs",
+        "mkdir app",
+        "touch app/anton.txt",
+        "echo all done!"
+      ]
+    }
 }
 
 ##############################################################################
