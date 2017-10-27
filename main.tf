@@ -20,10 +20,11 @@ variable slapikey {
 variable datacenter {
   description = "The data center that you want to create resources in."
 }
+variable schematics_environment_name {
+  default = "$SCHEMATICS.ENV"
+}
 variable schematics_ssh_key_public {
-  description = "The data center that you want to create resources in."
   default = "$SCHEMATICS.SSHKEYPUBLIC"
-
 }
 ##############################################################################
 # IBM Cloud Provider
@@ -37,8 +38,8 @@ provider "ibm" {
 ##############################################################################
 # Resources
 ##############################################################################
-resource "ibm_compute_ssh_key" "schematics_ssh_key" {
-    label = "Schematics SSH key for environment asd"
+resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
+    label = "Schematics SSH key for environment {$var.schematics_environment_name}"
     public_key = "${var.schematics_ssh_key_public}"
 }
 
