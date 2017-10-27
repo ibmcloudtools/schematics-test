@@ -56,6 +56,7 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     user_metadata = "{\"foo\":\"bar\"}"
     public_vlan_id = 1785525
     private_vlan_id = 1785527
+    ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
 
     # provisioner "remote-exec" {
     #   inline = [
