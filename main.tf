@@ -34,7 +34,7 @@ provider "ibm" {
 # Resources
 ##############################################################################
 resource "ibm_compute_ssh_key" "schematics_ssh_key" {
-    label = "Schematics SSH key for environment :: ${var.$SCHEMATICS.ENV}"
+    label = "Schematics SSH key for environment asd"
     public_key = "${var.$SCHEMATICS.SSHKEYPUBLIC}"
 }
 
