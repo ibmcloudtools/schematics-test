@@ -77,7 +77,7 @@ resource "ibm_compute_vm_instance" "test_vsi" {
 
       connection {
         type = "ssh"
-        host = "${self.test_vsi.ipv4_address}"
+        host = "${self.ipv4_address}"
         user = "root"
       }
     }
