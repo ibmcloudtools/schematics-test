@@ -20,7 +20,11 @@ variable slapikey {
 variable datacenter {
   description = "The data center that you want to create resources in."
 }
+variable schematics_ssh_key_public {
+  description = "The data center that you want to create resources in."
+  default = "$SCHEMATICS.SSHKEYPUBLIC"
 
+}
 ##############################################################################
 # IBM Cloud Provider
 ##############################################################################
