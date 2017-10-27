@@ -20,6 +20,12 @@ variable slapikey {
 variable datacenter {
   description = "The data center that you want to create resources in."
 }
+variable public_vlan_id {
+  description = "Public VLAN ID"
+}
+variable private_vlan_id {
+  description = "Private VLAN ID"
+}
 variable schematics_environment_name {
   default = "$SCHEMATICS.ENV"
 }
@@ -44,7 +50,7 @@ resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
 }
 
 resource "ibm_compute_vm_instance" "test_vsi" {
-    hostname = "anton-test-vsi"
+    hostname = "anton-test-vsi-1"
     domain = "anton.com"
     os_reference_code = "UBUNTU_16_64"
     datacenter = "${var.datacenter}"
@@ -54,14 +60,14 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     cores = 1
     memory = 4096
     user_metadata = "{\"foo\":\"bar\"}"
-    public_vlan_id = 1785525
-    private_vlan_id = 1785527
+    public_vlan_id = ${var.public_vlan_id}
+    private_vlan_id = ${var.private_vlan_id}
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
 
     provisioner "remote-exec" {
       inline = [
-        "apt-get upgrade",
         "apt-get update -y",
+        "apt-get upgrade -y",
         "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
         "sudo apt-get install -y nodejs",
         "mkdir app",
