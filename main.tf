@@ -35,7 +35,7 @@ provider "ibm" {
 ##############################################################################
 resource "ibm_compute_ssh_key" "schematics_ssh_key" {
     label = "Schematics SSH key for environment asd"
-    public_key = "${var.$SCHEMATICS.SSHKEYPUBLIC}"
+    public_key = "${var.schematics_ssh_key_public}"
 }
 
 resource "ibm_compute_vm_instance" "test_vsi" {
