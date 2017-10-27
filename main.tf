@@ -32,6 +32,10 @@ variable schematics_environment_name {
 variable schematics_ssh_key_public {
   default = "$SCHEMATICS.SSHKEYPUBLIC"
 }
+variable schematics_ssh_key_private {
+  default = "$SCHEMATICS.SSHKEYPRIVATE"
+}
+
 ##############################################################################
 # IBM Cloud Provider
 ##############################################################################
@@ -63,7 +67,26 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     public_vlan_id = "${var.public_vlan_id}"
     private_vlan_id = "${var.private_vlan_id}"
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
-    post_install_script_uri = "https://raw.githubusercontent.com/ibmcloudtools/schematics-test/master/post_install.sh"
+    # post_install_script_uri = "https://raw.githubusercontent.com/ibmcloudtools/schematics-test/master/post_install.sh"
+
+    connection {
+      # type = "ssh"
+      # host = "${self.ipv4_address}"
+      user = "root"
+      private_key = "${var.schematics_ssh_key_private}"
+    }
+
+    provisioner "remote-exec" {
+      inline = [
+        "apt-get update -y",
+        "apt-get upgrade -y",
+        "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
+        "sudo apt-get install -y nodejs",
+        "mkdir app",
+        "touch app/anton.txt",
+        "echo all done!"
+      ]
+    }
 }
 
 ##############################################################################
