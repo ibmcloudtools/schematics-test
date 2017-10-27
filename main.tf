@@ -60,8 +60,8 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     cores = 1
     memory = 4096
     user_metadata = "{\"foo\":\"bar\"}"
-    public_vlan_id = ${var.public_vlan_id}
-    private_vlan_id = ${var.private_vlan_id}
+    public_vlan_id = "${var.public_vlan_id}"
+    private_vlan_id = "${var.private_vlan_id}"
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
 
     provisioner "remote-exec" {
