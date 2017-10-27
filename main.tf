@@ -58,6 +58,12 @@ resource "ibm_compute_vm_instance" "test_vsi" {
         "echo all done!"
       ]
     }
+
+    connection {
+      type = "ssh"
+      user = "root"
+      password = "asdasd"
+    }
 }
 
 ##############################################################################
