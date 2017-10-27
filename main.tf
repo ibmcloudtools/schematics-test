@@ -74,12 +74,12 @@ resource "ibm_compute_vm_instance" "test_vsi" {
         "touch app/anton.txt",
         "echo all done!"
       ]
-    }
 
-    connection {
-      type = "ssh"
-      host = "${self.test_vsi.ipv4_address}"
-      user = "root"
+      connection {
+        type = "ssh"
+        host = "${self.test_vsi.ipv4_address}"
+        user = "root"
+      }
     }
 }
 
