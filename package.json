@@ -1,0 +1,22 @@
+{
+    "name": "awesome-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ibmcloudtools/schematics-test.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ibmcloudtools/schematics-test/issues"
+    },
+    "homepage": "https://github.com/ibmcloudtools/schematics-test#readme",
+    "dependencies": {
+        "express": "^4.16.2"
+    }
+}
