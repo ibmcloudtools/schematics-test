@@ -27,16 +27,16 @@ variable private_vlan_id {
   description = "Private VLAN ID"
 }
 variable schematics_environment_name {
-  default = "$SCHEMATICS.ENV"
   description = "This value used for VSI provisioning script. Do not modify."
+  default = "$SCHEMATICS.ENV"
 }
 variable schematics_ssh_key_public {
-  default = "$SCHEMATICS.SSHKEYPUBLIC"
   description = "This value used for VSI provisioning script. Do not modify."
+  default = "$SCHEMATICS.SSHKEYPUBLIC"
 }
 variable schematics_ssh_key_private {
-  default = "$SCHEMATICS.SSHKEYPRIVATE"
   description = "This value used for VSI provisioning script. Do not modify."
+  default = "$SCHEMATICS.SSHKEYPRIVATE"
 }
 
 ##############################################################################
