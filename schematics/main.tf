@@ -70,8 +70,6 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     # post_install_script_uri = "https://raw.githubusercontent.com/ibmcloudtools/schematics-test/master/post_install.sh"
 
     connection {
-      # type = "ssh"
-      # host = "${self.ipv4_address}"
       user = "root"
       private_key = "${var.schematics_ssh_key_private}"
     }
