@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 bx plugin install schematics
 bx api https://api.ng.bluemix.net
 bx login --apikey $BLUEMIX_API_KEY -c $BLUEMIX_ACCOUNT_ID
