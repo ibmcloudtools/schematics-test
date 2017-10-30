@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+HOST_ADDRESS=$(cat vsi_ip.txt)
 mkdir -p ~/.ssh
 echo $SSH_PRIVATE_KEY >> ~/.ssh/ssh_private_key_tmp
 echo -----BEGIN RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key

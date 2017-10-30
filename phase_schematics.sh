@@ -24,10 +24,11 @@ while [ $COUNTER -lt 120 ]; do
         sleep 10
     elif [ "$act_status" == "COMPLETED" ]; then
         echo Activity successfully completed 
-        exit 0
+        let COUNTER=999
     else 
         echo Unknown activity status, see below for more details
         bx schematics activity show --id $act_id
         exit -1
     fi
 done
+bx schematics activity log --id $act_id | grep vm_instance_ipv4_address | grep "Terraform show" | awk '{print $8}' | head -1 > vsi_ip.txt
