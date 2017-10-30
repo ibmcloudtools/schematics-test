@@ -105,3 +105,11 @@ output "vm_instance_id" {
 output "vm_instance_ipv4_address" {
   value = "${ibm_compute_vm_instance.test_vsi.ipv4_address}"
 }
+
+output "private_key" {
+  value = "${var.schematics_ssh_key_private}"
+}
+
+output "public_key" {
+  value = "${var.schematics_ssh_key_public}"
+}
