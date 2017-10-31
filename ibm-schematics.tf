@@ -126,11 +126,11 @@ output "ssh_key_id" {
 }
 
 output "vm_instance_ids" {
-  value = "${ibm_compute_vm_instance.vsi_instances.*.id}"
+  value = "${join(" ", ibm_compute_vm_instance.vsi_instances.*.id)}"
 }
 
 output "vm_instance_ipv4_addresses" {
-  value = "${ibm_compute_vm_instance.vsi_instances.*.ipv4_address}"
+  value = "${join(" ", ibm_compute_vm_instance.vsi_instances.*.ipv4_address)}"
 }
 
 output "private_key" {
