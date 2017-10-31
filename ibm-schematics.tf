@@ -110,6 +110,7 @@ resource "ibm_lbaas" "load_balancer" {
       "private_ip_address" = "${ibm_compute_vm_instance.vsi_instance.ipv4_address_private}"
     }
   ]
+}
 
 
 ##############################################################################
