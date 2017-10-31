@@ -26,6 +26,9 @@ variable public_vlan_id {
 variable private_vlan_id {
   description = "Private VLAN ID"
 }
+variable load_balancer_subnet {
+  description = "Subnet ID for load balancer"
+}
 variable schematics_environment_name {
   description = "This value used for VSI provisioning script. Do not modify."
   default = "$SCHEMATICS.ENV"
@@ -56,13 +59,7 @@ resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
     public_key = "${var.schematics_ssh_key_public}"
 }
 
-resource "ibm_compute_ssh_key" "test_keys" {
-    count = 2
-    label = "test key ${var.schematics_environment_name}-${count.index}"
-    public_key = "${var.schematics_ssh_key_public}"
-}
-
-resource "ibm_compute_vm_instance" "test_vsi" {
+resource "ibm_compute_vm_instance" "vsi_instance" {
     hostname = "devex-test-vsi-1"
     domain = "devex.com"
     os_reference_code = "UBUNTU_16_64"
@@ -76,7 +73,6 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     public_vlan_id = "${var.public_vlan_id}"
     private_vlan_id = "${var.private_vlan_id}"
     ssh_key_ids = [ "${ibm_compute_ssh_key.schematics_ssh_public_key.id}" ]
-    # post_install_script_uri = "https://raw.githubusercontent.com/ibmcloudtools/schematics-test/master/post_install.sh"
 
     connection {
       user = "root"
@@ -94,6 +90,28 @@ resource "ibm_compute_vm_instance" "test_vsi" {
     }
 }
 
+resource "ibm_lbaas" "load_balancer" {
+  name        = "LoadBalancer"
+  subnets     = ["${var.load_balancer_subnet}"]
+  datacenter  = "${var.datacenter}"
+
+  protocols = [
+    {
+      frontend_protocol     = "HTTP"
+      frontend_port         = 3000
+      backend_protocol      = "HTTP"
+      backend_port          = 3000
+      load_balancing_method = "round_robin"
+    }
+  ]
+
+  server_instances = [
+    {
+      "private_ip_address" = "${ibm_compute_vm_instance.vsi_instance.ipv4_address_private}"
+    }
+  ]
+
+
 ##############################################################################
 # Outputs
 ##############################################################################
@@ -102,11 +120,11 @@ output "ssh_key_id" {
 }
 
 output "vm_instance_id" {
-  value = "${ibm_compute_vm_instance.test_vsi.id}"
+  value = "${ibm_compute_vm_instance.vsi_instance.id}"
 }
 
 output "vm_instance_ipv4_address" {
-  value = "${ibm_compute_vm_instance.test_vsi.ipv4_address}"
+  value = "${ibm_compute_vm_instance.vsi_instance.ipv4_address}"
 }
 
 output "private_key" {
