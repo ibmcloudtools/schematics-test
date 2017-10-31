@@ -1,7 +1,5 @@
 #!/bin/bash
 set -x
-pwd
-ls -la
 HOST_ADDRESS=$(cat vsi_ip.txt)
 touch ~/.ssh/known_hosts
 ssh-keygen -f ~/.ssh/known_hosts -R $HOST_ADDRESS
