@@ -130,7 +130,7 @@ output "vm_instance_ids" {
 }
 
 output "vm_instance_ipv4_addresses" {
-  value = "${ibm_compute_vm_instance.vsi_instance.*.ipv4_address}"
+  value = "${ibm_compute_vm_instance.vsi_instances.*.ipv4_address}"
 }
 
 output "private_key" {
