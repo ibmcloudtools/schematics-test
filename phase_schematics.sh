@@ -32,4 +32,13 @@ while [ $COUNTER -lt 120 ]; do
         exit -1
     fi
 done
+
+# Save IP address to a text file
 bx schematics activity log --id $act_id | grep vm_instance_ipv4_address | grep "Terraform show" | awk '{print $8}' | head -1 > vsi_ip.txt
+
+# Save private key to a text file
+mkdir -p ~/.ssh
+echo -----BEGIN RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
+bx schematics activity log --id $act_id | grep "Terraform apply" | grep MIIE -A 24 | awk -F'|' '{print $2}' | awk '{print $1}' >> ~/.ssh/ssh_private_key
+echo -----END RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
+cat ~/.ssh/ssh_private_key
