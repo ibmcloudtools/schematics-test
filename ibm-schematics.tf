@@ -52,8 +52,13 @@ provider "ibm" {
 # Resources
 ##############################################################################
 resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
+    label = "Schematics SSH key for ${var.schematics_environment_name}"
+    public_key = "${var.schematics_ssh_key_public}"
+}
+
+resource "ibm_compute_ssh_key" "test_keys" {
     count = 2
-    label = "Schematics SSH key for ${var.schematics_environment_name}-${count.index}"
+    label = "test key ${var.schematics_environment_name}-${count.index}"
     public_key = "${var.schematics_ssh_key_public}"
 }
 
