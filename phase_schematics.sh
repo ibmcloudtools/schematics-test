@@ -34,7 +34,7 @@ while [ $COUNTER -lt 120 ]; do
 done
 
 # Save VSI IP address to a text file
-bx schematics activity log --id $act_id | grep vm_instance_ipv4_address | grep "Terraform show" | awk '{print $8}' | head -1 > vsi_ip.txt
+bx schematics activity log --id $act_id | grep vm_instance_ipv4_address | grep 'Terraform show' | head -1 | awk '-F=' '{print $2}' > vsi_ip.txt
 cat vsi_ip.txt
 
 # Save private key to a text file
