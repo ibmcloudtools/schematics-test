@@ -59,8 +59,9 @@ resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
     public_key = "${var.schematics_ssh_key_public}"
 }
 
-resource "ibm_compute_vm_instance" "vsi_instance" {
-    hostname = "devex-test-vsi-1"
+resource "ibm_compute_vm_instance" "vsi_instances" {
+    count = 2
+    hostname = "devex-test-vsi-${counter.index}"
     domain = "devex.com"
     os_reference_code = "UBUNTU_16_64"
     datacenter = "${var.datacenter}"
@@ -106,9 +107,13 @@ resource "ibm_lbaas" "load_balancer" {
   ]
 
   server_instances = [
-    {
-      "private_ip_address" = "${ibm_compute_vm_instance.vsi_instance.ipv4_address_private}"
+    { 
+      "private_ip_address" = "${ibm_compute_vm_instance.vsi_instances.0.ipv4_address_private}"
+    },
+    { 
+      "private_ip_address" = "${ibm_compute_vm_instance.vsi_instances.1.ipv4_address_private}"
     }
+
   ]
 }
 
@@ -120,12 +125,12 @@ output "ssh_key_id" {
   value = "${ibm_compute_ssh_key.schematics_ssh_public_key.id}"
 }
 
-output "vm_instance_id" {
-  value = "${ibm_compute_vm_instance.vsi_instance.id}"
+output "vm_instance_ids" {
+  value = "${ibm_compute_vm_instance.vsi_instances.*.id}"
 }
 
-output "vm_instance_ipv4_address" {
-  value = "${ibm_compute_vm_instance.vsi_instance.ipv4_address}"
+output "vm_instance_ipv4_addresses" {
+  value = "${ibm_compute_vm_instance.vsi_instance.*.ipv4_address}"
 }
 
 output "private_key" {
