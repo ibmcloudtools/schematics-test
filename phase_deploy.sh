@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+pwd
 ls -la
 HOST_ADDRESS=$(cat vsi_ip.txt)
 touch ~/.ssh/known_hosts
