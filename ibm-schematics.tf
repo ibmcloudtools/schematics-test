@@ -61,7 +61,7 @@ resource "ibm_compute_ssh_key" "schematics_ssh_public_key" {
 
 resource "ibm_compute_vm_instance" "vsi_instances" {
     count = 2
-    hostname = "devex-test-vsi-${counter.index}"
+    hostname = "devex-test-vsi-${count.index}"
     domain = "devex.com"
     os_reference_code = "UBUNTU_16_64"
     datacenter = "${var.datacenter}"
