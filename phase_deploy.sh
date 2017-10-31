@@ -1,13 +1,11 @@
 #!/bin/bash
 set -x
+#mkdir -p ~/.ssh
+#echo $SSH_PRIVATE_KEY >> ~/.ssh/ssh_private_key_tmp
+#echo -----BEGIN RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
+#sed 's/\s\+/\n/g' ~/.ssh/ssh_private_key_tmp >> ~/.ssh/ssh_private_key
+#echo -----END RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
 HOST_ADDRESS=$(cat vsi_ip.txt)
-mkdir -p ~/.ssh
-echo $SSH_PRIVATE_KEY >> ~/.ssh/ssh_private_key_tmp
-echo -----BEGIN RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
-sed 's/\s\+/\n/g' ~/.ssh/ssh_private_key_tmp >> ~/.ssh/ssh_private_key
-echo -----END RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
-cat ~/.ssh/ssh_private_key
-chmod 600 ~/.ssh/ssh_private_key
 touch ~/.ssh/known_hosts
 ssh-keygen -f ~/.ssh/known_hosts -R $HOST_ADDRESS
 ssh-keyscan $HOST_ADDRESS >> ~/.ssh/known_hosts 

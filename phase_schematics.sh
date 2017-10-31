@@ -41,4 +41,6 @@ mkdir -p ~/.ssh
 echo -----BEGIN RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
 bx schematics activity log --id $act_id | grep "Terraform apply" | grep MIIE -A 24 | awk -F'|' '{print $2}' | awk '{print $1}' >> ~/.ssh/ssh_private_key
 echo -----END RSA PRIVATE KEY----- >> ~/.ssh/ssh_private_key
+chmod 600 ~/.ssh/ssh_private_key
 cat ~/.ssh/ssh_private_key
+
