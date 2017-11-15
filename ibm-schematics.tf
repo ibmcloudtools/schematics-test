@@ -94,7 +94,6 @@ resource "ibm_compute_vm_instance" "vsi_instances" {
 resource "ibm_lbaas" "load_balancer" {
   name        = "LoadBalancer"
   subnets     = ["${var.load_balancer_subnet}"]
-  datacenter  = "${var.datacenter}"
 
   protocols = [
     {
